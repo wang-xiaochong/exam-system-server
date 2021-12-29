@@ -1,10 +1,10 @@
 package Router
 
 import (
-	"github.com/gin-gonic/gin"
 	controller "Exam/Controller"
-	utils "Exam/Utils"
 	middleware "Exam/Middleware"
+	utils "Exam/Utils"
+	"github.com/gin-gonic/gin"
 )
 
 // InitRouter 加入路由访问路径
