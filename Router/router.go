@@ -8,28 +8,41 @@ import (
 )
 
 // InitRouter 加入路由访问路径
-func InitRouter(e *gin.Engine){
+func InitRouter(e *gin.Engine) {
 	e.Use(utils.CORS(utils.Options{Origin: "*"}))
-	example:=e.Group("/example")
+	example := e.Group("/example")
 	{
-		example.GET("/search",controller.Search)
-		example.POST("/add",controller.Add)
+		example.GET("/search", controller.Search)
+		example.POST("/add", controller.Add)
 		example.PUT("/update", controller.Update)
 		example.DELETE("/delete", controller.Delete)
 	}
-	user:=e.Group("/user")
+	user := e.Group("/user")
 	{
-		user.GET("/findAll",controller.FindAllUser)
-		user.GET("/findByN",controller.FindAllUserByName)
-		user.POST("/login",controller.Login)
+		user.GET("/findAll", controller.FindAllUser)
+		user.GET("/findByN", controller.FindAllUserByName)
+		user.POST("/login", controller.Login)
 		user.POST("/insert", controller.UserInsert)
 		user.PUT("/update", controller.UserUpdate)
 		user.DELETE("/delete", controller.UserDelete)
 	}
+	student := e.Group("/student")
+	{
+		student.GET("/findAllSubject", controller.GetExamSubject)   //获取考试科目接口
+		student.GET("/findAllExamSource", controller.GetExamSource) //获取考试科目内容
+		student.POST("/insertAnswer", controller.SaveAnswer)        //保存答案
+		student.PUT("/InExam", controller.InExam)                   //进入考试
+		student.PUT("/OutExam", controller.OutExam)                 //离开考试
+	}
+	teacher := e.Group("/teacher")
+	{
+		teacher.POST("/startExam", controller.StartExam)            //发布考试
+		teacher.GET("/findStatus", controller.FindStatus)           //获取考试状态
+	}
 	// 中间件拦截示例
-	e.GET("/cookie",utils.SetCK)
-	e.GET("/home",middleware.AuthMiddleWare(),controller.Home)
-	e.GET("/home2",middleware.JWTAuthMiddleware(),middleware.TokenCheck(),controller.Home2)
+	e.GET("/cookie", utils.SetCK)
+	e.GET("/home", middleware.AuthMiddleWare(), controller.Home)
+	e.GET("/home2", middleware.JWTAuthMiddleware(), middleware.TokenCheck(), controller.Home2)
 }
 
 // SetupRouter 初始化路由

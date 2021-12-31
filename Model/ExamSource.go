@@ -1,6 +1,11 @@
 package model
 
-import "go.mongodb.org/mongo-driver/bson/primitive"
+import (
+	database "Exam/Database"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
+
+var Sources = database.DB.Collection("examSource")
 
 //考试试题库
 type Exam struct {
@@ -24,3 +29,4 @@ type ShortAnswer struct {
 	Question string `bson:"question" json:"question"` //问题
 	Answer   string `bson:"answer" json:"answer"`
 }
+
