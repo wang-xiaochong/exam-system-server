@@ -17,12 +17,12 @@ type Subject struct {
 
 //考试情况
 type ExamStatus struct {
-	ID           primitive.ObjectID `bson:"_id,omitempty"      json:"_id,omitempty" `
-	SubjectName  string             `bson:"subjectName" json:"subjectName"` //科目名称
-	Student      []StuInfo          `bson:"student" json:"student"`
-	OnlineNumber int                `bson:"onlineNumber" json:"onlineNumber"` //考试在线人数
+	ID          primitive.ObjectID `bson:"_id,omitempty"      json:"_id,omitempty" `
+	SubjectName string             `bson:"subjectName" json:"subjectName"` //科目名称
+	Student     []StuInfo          `bson:"student" json:"student"`
 }
 type StuInfo struct {
+	Major       string `bson:"major" json:"major"`             //专业
 	SubjectName string `bson:"subjectName" json:"subjectName"` //科目名称
 	Account     string `bson:"account"    json:"account"    form:"account"`
 	Name        string `bson:"name"       json:"name"       form:"name"`

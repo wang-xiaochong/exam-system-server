@@ -31,11 +31,7 @@ func GetExamSource(c *gin.Context) {
 		utils.Return(c, 500, "subject为空")
 		return
 	} else {
-		jsonStr := service.GetExamSubject(c, subject)
-		var subject []model.Exam
-	_:
-		json.Unmarshal(jsonStr, &subject)
-		utils.Return(c, utils.SUCCESS, subject)
+		service.GetExamSource(c, subject)
 		return
 	}
 }
@@ -51,7 +47,7 @@ func SaveAnswer(c *gin.Context) {
 	return
 }
 
-//进入考试
+//进入考试状态
 func InExam(c *gin.Context) {
 	var stu model.StuInfo
 	if err := c.Bind(&stu); err != nil {
@@ -62,7 +58,7 @@ func InExam(c *gin.Context) {
 	return
 }
 
-//离开考试
+//离开考试状态
 func OutExam(c *gin.Context) {
 	var stu model.StuInfo
 	if err := c.Bind(&stu); err != nil {
