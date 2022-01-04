@@ -21,6 +21,7 @@ func InitRouter(e *gin.Engine) {
 	{
 		user.GET("/findAll", controller.FindAllUser)
 		user.GET("/findByN", controller.FindAllUserByName)
+		user.POST("/findUserByToken",middleware.JWTAuthMiddleware(),controller.GetUserByToken)
 		user.POST("/login", controller.Login)
 		user.POST("/insert", controller.UserInsert)
 		user.PUT("/update", controller.UserUpdate)

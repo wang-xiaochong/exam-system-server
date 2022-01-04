@@ -17,20 +17,21 @@ type Exam struct {
 
 //选择题类型
 type Choice struct {
-	Id     int    `bson:"id" json:"id"`
-	Info   string `bson:"info" json:"info"` //问题
-	Choice string `bson:"choice" json:"choice"`
-	Answer struct {
+	Id            int    `bson:"id" json:"id"`
+	Info          string `bson:"info" json:"info"` //问题
+	Choice        string `bson:"choice" json:"choice"`
+	CorrectChoice string `bson:"correctChoice" json:"correctChoice"`
+	Answer        struct {
 		A string `bson:"A" json:"A"`
 		B string `bson:"B" json:"B"`
 		C string `bson:"C" json:"C"`
 		D string `bson:"D" json:"D"`
-	}`bson:"answer" json:"answer"`
+	} `bson:"answer" json:"answer"`
 }
 
 //简答题类型
 type ShortAnswer struct {
-	Id            int    `bson:"id" json:"id"`
-	Info          string `bson:"info" json:"info"` //问题
-	Answer        string `bson:"answer" json:"answer"`
+	Id     int    `bson:"id" json:"id"`
+	Info   string `bson:"info" json:"info"` //问题
+	Answer string `bson:"answer" json:"answer"`
 }

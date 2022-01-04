@@ -15,7 +15,7 @@ type User struct {
 	Phone        string               `bson:"phone"      json:"phone"      form:"phone" `
 	IsValid      string               `bson:"is_valid"   json:"is_valid"   form:"is_valid" `
 	Salt         string               `bson:"salt"       json:"salt"       form:"salt" `
-	//Status       string               `bson:"status" json:"status"`                                 //考试在线状态：0为离线 1为在线
+	Info         string               `bson:"info" json:"info"`                                 //考试在线状态：0为离线 1为在线
 	Major        string               `bson:"major" json:"major"`                                   //专业
 	Authority    primitive.ObjectID   `bson:"authority" json:"authority" form:"authority" `         //存数据库的角色
 	Verification []primitive.ObjectID `bson:"verification" json:"verification" form:"verification"` //访问数据的权限

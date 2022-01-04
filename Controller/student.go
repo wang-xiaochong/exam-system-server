@@ -8,6 +8,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type RetSubject struct {
+	Label string `json:"label"`
+	Value string `json:"value"`
+}
+
 //获取考试科目
 func GetExamSubject(c *gin.Context) {
 	major := c.Query("major")
@@ -19,6 +24,13 @@ func GetExamSubject(c *gin.Context) {
 		var subject []model.Subject
 	_:
 		json.Unmarshal(jsonStr, &subject)
+		var subjects []RetSubject
+		for _, i := range subject {
+			subjects = append(subjects, RetSubject{
+				Label: i.Name,
+				Value: i.Name,
+			})
+		}
 		utils.Return(c, utils.SUCCESS, subject)
 		return
 	}
