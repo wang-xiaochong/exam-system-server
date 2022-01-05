@@ -32,7 +32,7 @@ func GetMongoDB() *mongo.Database {
 	if client == nil {
 		client = InitDB()
 	}
-	DB = client.Database("example")
+	DB = client.Database("examSystem")
 	return  DB
 }
 

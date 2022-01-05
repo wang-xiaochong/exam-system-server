@@ -35,6 +35,14 @@ func FindAllUser(c *gin.Context)  {
 	return
 }
 
+func GetUserByToken(c *gin.Context)  {
+	user, exists:= c.Get("user")
+	if exists {
+		utils.Return(c,utils.SUCCESS,user)
+		return
+	}
+	utils.Return(c,utils.NOT_EXIST,user)
+}
 // FindAllUserByName 按名称查找用户
 func FindAllUserByName(c *gin.Context)  {
 	var  key model.KEY

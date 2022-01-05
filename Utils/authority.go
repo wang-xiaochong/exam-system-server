@@ -4,12 +4,12 @@ import (
 	model "Exam/Model"
 	redis "Exam/Redis"
 	"fmt"
-	"net/http"
-	"time"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
+	"net/http"
+	"time"
 )
 
 // SetCK 设置cookie
@@ -25,13 +25,14 @@ func SetCK(c *gin.Context) {
 }
 
 // SetSession 设置session
-func SetSession(c *gin.Context)  {
+func SetSession(c *gin.Context) {
 	session := sessions.Default(c)
-	fmt.Println("session:",session)
+	fmt.Println("session:", session)
 	//如果浏览器第一次访问返回状态码401，第二次访问则返回状态码200
 	if session.Get("user") != "sessiontest" {
 		session.Set("user", "sessiontest")
-		_:session.Save()
+	_:
+		session.Save()
 		c.JSON(http.StatusUnauthorized, gin.H{"user": session.Get("user")})
 	} else {
 		c.String(http.StatusOK, "Successful second visit")
@@ -41,7 +42,7 @@ func SetSession(c *gin.Context)  {
 // MyClaims 自定义签名
 type MyClaims struct {
 	//Name string `json:"name" form:"name"`
-	User  model.User `json:"user"`
+	User model.User `json:"user"`
 	jwt.StandardClaims
 }
 
@@ -54,7 +55,8 @@ const TokenExpireDuration = time.Hour * 24
 var JWTSecret = []byte("GarfieldIsAHero!")
 
 // GenToken 生成Token
-func GenToken(user model.User,reqIP string) (string, error) {
+func
+GenToken(user model.User, reqIP string) (string, error) {
 
 	c := MyClaims{
 		user,
@@ -66,7 +68,7 @@ func GenToken(user model.User,reqIP string) (string, error) {
 	// 使用指定的签名方法创建签名对象
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, c)
 	// 使用指定的secret签名并获取完整的编码后的字符串token
-	encodeToken,_:=token.SignedString(JWTSecret)
+	encodeToken, _ := token.SignedString(JWTSecret)
 	//将token根据用户ID存于redis中
 	err := redis.SetKey(user.ID.Hex()+reqIP, encodeToken)
 	if err != nil {
@@ -92,6 +94,3 @@ func ParseToken(tokenString string) (*MyClaims, error) {
 	}
 	return nil, errors.New("invalid token")
 }
-
-
-

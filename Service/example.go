@@ -39,6 +39,14 @@ func Login(c *gin.Context, user model.Login) {
 		utils.Return(c, utils.SYS_BUSY, err.Error())
 		return
 	}
+	//var data struct{
+	//	Info string `json:"info"`
+	//	Token string `json:"token"`
+	//	Result bool `json:"result"`
+	//}
+	//data.Info=one.Role
+	//data.Token=token
+	//data.Result=true
 	utils.Return(c, utils.SUCCESS, token)
 }
 
