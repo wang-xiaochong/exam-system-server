@@ -2,7 +2,7 @@ package utils
 
 import (
 	model "Exam/Model"
-	redis "Exam/Redis"
+	// redis "Exam/Redis"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-contrib/sessions"
@@ -68,12 +68,14 @@ GenToken(user model.User, reqIP string) (string, error) {
 	// 使用指定的签名方法创建签名对象
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, c)
 	// 使用指定的secret签名并获取完整的编码后的字符串token
-	encodeToken, _ := token.SignedString(JWTSecret)
+	// encodeToken, _ := token.SignedString(JWTSecret)
+	 _,_ = token.SignedString(JWTSecret)
+
 	//将token根据用户ID存于redis中
-	err := redis.SetKey(user.ID.Hex()+reqIP, encodeToken)
-	if err != nil {
-		fmt.Println("Token failed to insert redis")
-	}
+	// err := redis.SetKey(user.ID.Hex()+reqIP, encodeToken)
+	// if err != nil {
+	// 	fmt.Println("Token failed to insert redis")
+	// }
 	return token.SignedString(JWTSecret)
 }
 
@@ -81,6 +83,7 @@ GenToken(user model.User, reqIP string) (string, error) {
 
 // ParseToken 解析Token
 func ParseToken(tokenString string) (*MyClaims, error) {
+	fmt.Println(tokenString)
 	// 后面是一个匿名函数
 	token, err := jwt.ParseWithClaims(tokenString, &MyClaims{}, func(token *jwt.Token) (i interface{}, err error) {
 		return JWTSecret, nil
